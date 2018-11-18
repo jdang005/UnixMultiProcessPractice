@@ -1,0 +1,62 @@
+File 		  : Pseudocode
+Author        : Justin Danglade
+Student ID    : 4552415
+Course        : COP4338
+Section       : U04
+Instructor    : William Feild
+Due Date      : November 29, 2018
+
+I hereby certify that this collective work is my own and none of it is the work
+of any other person or entity.
+
+______________________________
+
+
+--------------------------------------------------------------------------------
+pseudocode 	  : Makefile
+
+1 - Create variables to store reused commands, files, and destinations.
+2 - Compile and link the source code files with the header files.
+3 - Make use of the "all" build target so that executable can be created
+    using the "make all" command or simply the "make" command in a standard Unix
+    terminal.
+
+--------------------------------------------------------------------------------
+pseudocode 	  : bool validateCommandInput(int numOfArgs, 
+										  const char * commandArgs[])
+				{
+					1. Validate numOfArgs, this value must be between the 
+					   numbers two and eight(inclusive) because the program 
+					   execution call is always counted in addition to the 
+					   possible number of integer arguments, one through 
+					   seven(inclusive).
+
+					2. Validate commandArgs, this constant string array will 
+					   hold (numOfArgs + 1) string arguments. Each argument must
+					   be able to be converted into an integer between zero and 
+					   nine(inclusive).
+
+					3. If both the numOfArgs and commandArgs variables are valid
+					   return true, if not return false.
+				}
+
+--------------------------------------------------------------------------------
+pseudocode 	  : bool validateCharToInt(char * inputChar, int min, int max)
+				{
+					1. inputChar is valid if it can be converted into an integer 
+					   between min and max(inclusive).
+
+					2. If inputChar is valid return true, if not return false.
+				}
+
+--------------------------------------------------------------------------------
+pseudocode 	  : bool parentProcess()
+				{
+					1. 
+				}
+
+--------------------------------------------------------------------------------
+pseudocode 	  : bool childProcess(int memoryIndex)
+				{
+					1. 
+				}
