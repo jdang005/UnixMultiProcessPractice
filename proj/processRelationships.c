@@ -28,7 +28,6 @@ Definitions			- used to validate that a character pointer is pointing to
 					- 
 				bool childProcess(int)
 
-
 Required      : 
 Features Not
 Included
@@ -38,19 +37,5 @@ Known Bugs    :
 
 #include "processRelationships.h"
 
-/*
-	Verifies that the character pointer inputChar valid, inputChar valid if it 
-	is pointing to a sequence of characters that is within the range min to 
-	max(inclusive). 
 
-	Returns true if inputChar is valid, false if it is not.
-
-	Input	  = {char *: inputChar, int min, int max}
-	Output	  = {bool: isValid}
-*/
-bool validateCharToInt(char * inputChar, int min, int max)
-{	
-	bool isValid = false;
-
-}
 
