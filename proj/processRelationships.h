@@ -45,14 +45,19 @@ Constants     : MAX_ARGS
 					  nine. (9)
 				NUM_INIT	
 					- Regular numerical type initialization value is zero. (0)
+				EXEC_END
+					- The end status of a successful process. (0)
+				MAX_STR_BUFF
+					- The maximum size for string input, constrained by the 
+					  standard size of the unix console. (80)
 
 Function	  : bool validateCommandInput(int, char * *);
 Prototypes			- used to validate the terminal command input.
 				bool validateCharToInt(char *, int, int);
 					- used to validate that a character pointer is pointing to 
-					  the address of a character that can be converted into and 
-					  integer within the minimum and maximum boundaries defined 
-					  by the two integer arguments.
+					  the address of a character sequence that can be converted 
+					  into and integer within the minimum and maximum boundaries 
+					  defined by the two integer arguments.
 				bool parentProcess();
 					- 
 				bool childProcess(int);
@@ -79,6 +84,8 @@ Known Bugs    :
 #define MIN_ARGS 1
 #define MAX_ARGVAL 9
 #define NUM_INIT 0
+#define EXEC_END 0
+#define MAX_STR_BUFF 80
 
 bool validateCommandInput(int, const char * *);
 bool validateCharToInt(char *, int, int);
