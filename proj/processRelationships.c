@@ -19,10 +19,12 @@ Compile/Run   : N/A
 Description   : This source code file is a collection of function definitions 
 				that were declared in the processRelationship.h header file.
 
-Function 	  : bool parentProcess()
+Function 	  : bool parentProcess();
 Definitions			- 
-				bool childProcess(int)
-					-
+				bool childProcess(int memoryIndex);
+					- 
+				bool runProcesses(int numOfArgs, const char * commandArgs[]);
+					- 
 Required      : 
 Features Not
 Included
@@ -40,7 +42,8 @@ Known Bugs    :
 */
 bool parentProcess()
 {
-
+	bool success = false;
+	
 }
 
 /*
@@ -51,5 +54,19 @@ bool parentProcess()
 */
 bool childProcess(int memoryIndex)
 {
+	bool success = false;
 
 }
+
+/*
+	
+
+	Input	  = {}
+	Output	  = {bool: }
+*/
+bool runProcesses(int numOfArgs, const char * commandArgs[])
+{
+	bool success = false;
+
+}
+

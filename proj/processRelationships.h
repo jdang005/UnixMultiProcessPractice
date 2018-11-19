@@ -46,7 +46,9 @@ Constants     : NUM_INIT
 Function	  : bool parentProcess();
 Prototypes			- 
 				bool childProcess(int);
-					-
+					- 
+				bool runProcesses(int, const char * *);
+					- 
 Required      : 
 Features Not
 Included
@@ -71,5 +73,6 @@ Known Bugs    :
 
 bool parentProcess();
 bool childProcess(int);
+bool runProcesses(int, const char * *);
 
 #endif /* processRelationships_h */

@@ -24,12 +24,22 @@ Compile/Run   : gcc -o SharedProcess sharedProcessMain.c processRelationships.c
 Description   : 
 
 Function 	  : bool validateCommandInput(int, char * *);
-Definitions			- used to validate the terminal command input.
+Definitions			- Used to validate the terminal command input.
 				bool validateCharToInt(char * input, int min, int max)
-					- used to validate that a character pointer is pointing to 
+					- Used to validate that a character pointer is pointing to 
 					  a sequence of characters that can be converted into and 
 					  integer within the minimum and maximum boundaries defined 
 					  by the two integer arguments.
+				int copyChars(char dest[MAX_STR_BUFF + 1], const char * SRC, 
+							   char delim)
+					- Used to copy characters from a source buffer to the 
+					  character array dest up until a deliminating character is 
+					  found or until 80 characters has been copied, which ever
+					  comes first.
+				void printErrorMessage(int mode)
+					- Used to print multiple messages to the standard error 
+					  stream. The mode variable determines which set of messages 
+					  is sent to the standard error stream.
 				
 Input         : 
 
@@ -57,7 +67,7 @@ int main(int argc, const char * argv[])
 	const bool VALID = validateCommandInput(argc, argv);
 	if(VALID == true)
 	{
-		
+
 	}
 	else
 	{
@@ -109,9 +119,9 @@ bool validateCommandInput(int numOfArgs, const char * commandArgs[])
 }
 
 /*
-	Verifies that the character pointer input valid, input valid if it 
-	is pointing to a sequence of characters that can be converted into an 
-	integer that is within the range min to max(inclusive). 
+	Verifies that the character pointer input valid, input valid if it is 
+	pointing to a sequence of characters that can be converted into an integer 
+	that is within the range min to max(inclusive). 
 
 	Returns true if input is valid, false if it is not.
 
@@ -197,11 +207,11 @@ bool validateCharToInt(char * input, int min, int max)
   	Input   = {char [MAX_STR_BUFF + 1], char *, char}
   	Output  = {int}
 */
-int copyChars(char dest[MAX_STR_BUFF + 1], const char * src, char delim)
+int copyChars(char dest[MAX_STR_BUFF + 1], const char * SRC, char delim)
 {
 	int charCount = NUM_INIT;
   	/* Reject invalid source strings */
-  	if(src == NULL)
+  	if(SRC == NULL)
   	{
     	dest = NULL;
     	return NUM_INIT;
@@ -209,10 +219,9 @@ int copyChars(char dest[MAX_STR_BUFF + 1], const char * src, char delim)
 
   	/* 
   		Count the number of characters until the deliminator is found, if the 
-  		deliminator is not found within the MAX_STR_BUFF characters 
-  		return zero.
+  		deliminator is not found within the MAX_STR_BUFF characters return zero.
   	*/
-  	while(src[charCount] != delim || charCount > MAX_STR_BUFF)
+  	while(SRC[charCount] != delim || charCount > MAX_STR_BUFF)
   	{
     	charCount ++;
   	}
@@ -226,20 +235,20 @@ int copyChars(char dest[MAX_STR_BUFF + 1], const char * src, char delim)
   		Copy src into the destination array and return its address via a 
   		pointer and make destination a string.
   	*/
-  	strncpy(dest, src, charCount);
+  	strncpy(dest, SRC, charCount);
   	dest[charCount] = '\0';
   	return charCount;
 }
 
 /*
-  Function that can print multiple termination messages. The modes are used to
-  modify the message(s) printed to the standard error stream.
+  	Function that can print multiple termination messages. The modes are used to
+  	modify the message(s) printed to the standard error stream.
 
-  mode = 0      : Represents invalid command line arguments.
-  any other mode: Represents and undefined reason for termination.
+  	mode = 0      : Represents invalid command line arguments.
+  	any other mode: Represents and undefined reason for termination.
 
-  Input   = {int}
-  Output  = {void}
+  	Input   = {int}
+  	Output  = {void}
 */
 void printErrorMessage(int mode)
 {
