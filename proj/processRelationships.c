@@ -32,5 +32,24 @@ Known Bugs    :
 
 #include "processRelationships.h"
 
+/*
+	
 
+	Input	  = {}
+	Output	  = {bool: }
+*/
+bool parentProcess()
+{
 
+}
+
+/*
+	
+
+	Input	  = {}
+	Output	  = {bool: }
+*/
+bool childProcess(int memoryIndex)
+{
+
+}

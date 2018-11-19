@@ -50,6 +50,36 @@ pseudocode 	  : bool validateCharToInt(char * inputChar, int min, int max)
 				}
 
 --------------------------------------------------------------------------------
+pseudocode 	  : int copyChars(char dest[MAX_STR_BUFF + 1], const char * src, 
+							  char delim);
+				{
+					/* Validate the source pointer */
+  					1.	if src is NULL
+       	 					return 0
+
+  					2. 	iterate through the src from the beginning counting the 
+  					    number of characters.
+
+  					3. 	if the deliminator is not found within the MAX_STR_BUFF 
+  						size
+        					return 0
+
+  					4. 	use strncpy to copy the src to the destination given the 
+  						number of characters that were counted.
+
+  					5. 	return the number of characters counted.
+				}
+--------------------------------------------------------------------------------
+pseudocode 	  : void printErrorMessage(int mode)
+				{
+					1.  if mode is 0
+							message is "Invalid command input"
+    					else
+        					message is "Unknown reason for error!"
+
+  					2. printError(message)
+				}
+--------------------------------------------------------------------------------
 pseudocode 	  : bool parentProcess()
 				{
 					1. 

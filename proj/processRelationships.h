@@ -18,32 +18,24 @@ Compile/Run   : N/A
 
 Description   : This header file is used to include several libraries, several 
 				constants, as well as to prototype several functions defined in 
-				the processRelationships.c and sharedProcessMain.c source code 
-				files.
+				the processRelationships.c source code file.
 
 Libraries     : stdio.h 	
-					- used for common input/output definitions 
+					- Used for common input/output definitions 
 				stdlib.h 	
-					- used for common c definitions
+					- Used for common c definitions
 				unistd.h 	
-					- used for miscellaneous c definitions 
+					- Used for miscellaneous c definitions 
 				stdbool.h 	
-					- used to define a simple boolean type
+					- Used to define a simple boolean type
 				limits.h 	
-					- used define type limitations
+					- Used define type limitations
 				string.h 	
-					- used to define string functions
+					- Used to define string functions
 				sys/types.h 
-					- used to define c types based on the current system
+					- Used to define c types based on the current system
 
-Constants     : MAX_ARGS 	
-					- The maximum number of command arguments is seven. (7)
-				MIN_ARGS 	
-					- The minimum number of command arguments is one. (1)
-				MAX_ARGVAL  
-					- The maximum value for any of the command arguments is 
-					  nine. (9)
-				NUM_INIT	
+Constants     : NUM_INIT	
 					- Regular numerical type initialization value is zero. (0)
 				EXEC_END
 					- The end status of a successful process. (0)
@@ -51,15 +43,8 @@ Constants     : MAX_ARGS
 					- The maximum size for string input, constrained by the 
 					  standard size of the unix console. (80)
 
-Function	  : bool validateCommandInput(int, char * *);
-Prototypes			- used to validate the terminal command input.
-				bool validateCharToInt(char *, int, int);
-					- used to validate that a character pointer is pointing to 
-					  the address of a character sequence that can be converted 
-					  into and integer within the minimum and maximum boundaries 
-					  defined by the two integer arguments.
-				bool parentProcess();
-					- 
+Function	  : bool parentProcess();
+Prototypes			- 
 				bool childProcess(int);
 					-
 Required      : 
@@ -80,15 +65,10 @@ Known Bugs    :
 #include <string.h>
 #include <sys/types.h>
 
-#define MAX_ARGS 7
-#define MIN_ARGS 1
-#define MAX_ARGVAL 9
 #define NUM_INIT 0
 #define EXEC_END 0
 #define MAX_STR_BUFF 80
 
-bool validateCommandInput(int, const char * *);
-bool validateCharToInt(char *, int, int);
 bool parentProcess();
 bool childProcess(int);
 
