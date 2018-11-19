@@ -92,4 +92,4 @@ bool validateCharToInt(char *, int, int);
 bool parentProcess();
 bool childProcess(int);
 
-#endif processRelationships_h
+#endif /* processRelationships_h */

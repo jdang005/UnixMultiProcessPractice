@@ -25,9 +25,11 @@ Description   :
 
 Function 	  : bool validateCommandInput(int, char * *);
 Definitions			- used to validate the terminal command input.
-				bool validateCharToInt(char *, int, int);
-					- use to validate that a string can be converted into an
-					  integer within a specific value range.
+				bool validateCharToInt(char * input, int min, int max)
+					- used to validate that a character pointer is pointing to 
+					  a sequence of characters that can be converted into and 
+					  integer within the minimum and maximum boundaries defined 
+					  by the two integer arguments.
 				
 Input         : 
 
@@ -46,33 +48,36 @@ Known Bugs    :
 
 int main(int argc, const char * argv[])
 {
-	
+
 }
 
 
 /*
-	
+	Verifies that the command input provided at execution time is valid. Valid 
+	numOfArgs is a number between two and eight(inclusive) and valid commandArgs 
+	is an array of numOfArgs strings each of which can be converted into an 
+	integer between zero and nine(inclusive).
 
-	Input	  = {}
-	Output	  = {}
+	Input	  = {int numOfArgs, const char * commandArgs[]}
+	Output	  = {bool: isValid}
 */
 bool validateCommandInput(int numOfArgs, const char * commandArgs[])
 {
-	bool isValidInput = false;
+	bool isValid = false;
 	
 }
 
 /*
-	Verifies that the character pointer inputChar valid, inputChar valid if it 
+	Verifies that the character pointer input valid, input valid if it 
 	is pointing to a sequence of characters that can be converted into an 
 	integer that is within the range min to max(inclusive). 
 
-	Returns true if inputChar is valid, false if it is not.
+	Returns true if input is valid, false if it is not.
 
-	Input	  = {char *: inputChar, int min, int max}
+	Input	  = {char *: input, int min, int max}
 	Output	  = {bool: isValid}
 */
-bool validateCharToInt(char * inputChar, int min, int max)
+bool validateCharToInt(char * input, int min, int max)
 {	
 	bool isValid = false;
 	int strPos = NUM_INIT;
@@ -80,18 +85,18 @@ bool validateCharToInt(char * inputChar, int min, int max)
   	long longStorage = NUM_INIT;
   	bool negativeNum = false;
 
-  	if(inputChar == NULL || min > max)
+  	if(input == NULL || min > max)
   	{
   		return false;
   	}
   	/* Count the number of digits in possibleInt. */
-  	while(possibleYear[strPos] != '\0' &&  possibleYear[strPos] != EOF)
+  	while(input[strPos] != '\0' &&  input[strPos] != EOF)
   	{
     	/*
       		If the character being inspected is a digit, increment the number of
       		digits counted.
     	*/
-    	if(possibleYear[strPos] > 47 && possibleYear[strPos] < 58)
+    	if(input[strPos] > 47 && input[strPos] < 58)
     	{
       		digits ++;
       		strPos ++;
@@ -99,7 +104,7 @@ bool validateCharToInt(char * inputChar, int min, int max)
     	else
     	{
       		/* check for a single predicate negative symbol */
-      		if(possibleYear[strPos] == '-' && digits == NUM_INIT)
+      		if(input[strPos] == '-' && digits == NUM_INIT)
       		{
         		if(negativeNum == true)
         		{
@@ -108,8 +113,8 @@ bool validateCharToInt(char * inputChar, int min, int max)
         		negativeNum = true;
         		strPos ++;
       		}
-      		else if(possibleYear[strPos] != '\0' &&  
-      				possibleYear[strPos] != EOF)
+      		else if(input[strPos] != '\0' &&  
+      				input[strPos] != EOF)
       		{
         		/*
           			If any other symbol other than the null character or EOF 
@@ -127,10 +132,8 @@ bool validateCharToInt(char * inputChar, int min, int max)
   	{
   	  return false;
   	}
-  	/*
-    	Exclude values outside the range of min...max
-  	*/
-  	longStorage = atol(possibleYear);
+  	/* Exclude values outside the range of min...max */
+  	longStorage = atol(input);
   	if(longStorage < min || longStorage > max)
   	{
     	return false;

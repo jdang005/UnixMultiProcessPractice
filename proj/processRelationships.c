@@ -19,15 +19,10 @@ Compile/Run   : N/A
 Description   : This source code file is a collection of function definitions 
 				that were declared in the processRelationship.h header file.
 
-Function 	  : bool validateCharToInt(char * inputChar, int min, int max)
-Definitions			- used to validate that a character pointer is pointing to 
-					  a sequence of characters that can be converted into and 
-					  integer within the minimum and maximum boundaries defined 
-					  by the two integer arguments.
-				bool parentProcess()
-					- 
+Function 	  : bool parentProcess()
+Definitions			- 
 				bool childProcess(int)
-
+					-
 Required      : 
 Features Not
 Included
