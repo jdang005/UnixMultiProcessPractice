@@ -92,10 +92,3 @@ pseudocode 	  : bool childProcess(int memoryIndex)
 					1.	
 
 				}
-
---------------------------------------------------------------------------------
-pseudocode 	  : bool runProcesses(int numOfArgs, const char * commandArgs[])
-				{
-					1.	
-
-				}

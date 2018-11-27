@@ -43,18 +43,14 @@ Constants     : NUM_INIT
 					- The maximum size for string input, constrained by the 
 					  standard size of the unix console. (80)
 
-Function	  : bool parentProcess();
-Prototypes			- 
-				bool childProcess(int);
-					- 
-				bool runProcesses(int, const char * *);
-					- 
+Function	  : bool parentProcess(int, const char * *);
+Prototypes		bool childProcess(int);
 
-Required      : 
+Required      : None
 Features Not
 Included
 
-Known Bugs    : 
+Known Bugs    : None
 */
 
 #ifndef processRelationships_h
@@ -67,13 +63,14 @@ Known Bugs    :
 #include <limits.h>
 #include <string.h>
 #include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
 
 #define NUM_INIT 0
 #define EXEC_END 0
 #define MAX_STR_BUFF 80
 
-bool parentProcess();
+bool parentProcess(int, const char * *);
 bool childProcess(int);
-bool runProcesses(int, const char * *);
 
 #endif /* processRelationships_h */

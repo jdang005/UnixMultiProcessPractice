@@ -61,19 +61,35 @@ bool validateCharToInt(char *, int, int);
 int copyChars(char [MAX_STR_BUFF + 1], const char *, char);
 void printErrorMessage(int);
 
+/*
+	
 
+	Input	  = {}
+	Output	  = {}
+*/
 int main(int argc, const char * argv[])
-{
-	const bool VALID = validateCommandInput(argc, argv);
-	if(VALID == true)
-	{
+{	
+	char * message = "Parent: starts";
+	fprintf(stdout, "%s\n", message);
+	message = "Parent: validate command line";
+	fprintf(stdout, "%s\n", message);
 
+	const bool VALID = validateCommandInput(numOfArgs, commandArgs);
+	bool sharedProcess = false;
+	if(VALID == true)
+	{	
+		sharedProcess = parentProcess(arc, argv);
+		if(sharedProcess == false)
+		{
+			return EXEC_END - 1;
+		}
 	}
 	else
 	{
 		printErrorMessage(NUM_INIT);
+		return EXEC_END - 1;
 	}
-
+	return EXEC_END;
 }
 
 

@@ -19,30 +19,9 @@ Compile/Run   : N/A
 Description   : This source code file is a collection of function definitions 
 				that were declared in the processRelationship.h header file.
 
-Function 	  : bool parentProcess();
-Definitions			- Responsible for allocating shared memory based on the 
-					  command-line arguments, attaching the shared memory to its 
-					  own address space, filling that memory with the 
-					  command-line arguments and forking child processes. The 
-					  parentProcess function will display the initial state of 
-					  the shared memory, store and display the PID and exit 
-					  codes of all executed child processes, display the final 
-					  state of the shared memory, detach and removes the shared 
-					  memory and then returns true with successful execution, 
-					  false otherwise. 
-				bool childProcess(int memoryIndex);
-					- Responsible for first displaying the initial state of the 
-					  shared memory and the unique ID assigned to the child 
-					  process. The child process then locates the memory 
-					  associated with its own unique ID within the shared 
-					  memory, multiplies the initial value by its unique ID, 
-					  then updates that shared memory location with the value. 
-					  Each child will then display the current state of the 
-					  shared memory, provide their exit PID & exit code, and 
-					  then returns true with successful execution, false 
-					  otherwise. 
-				bool runProcesses(int numOfArgs, const char * commandArgs[]);
-					- 
+Function 	  : bool parentProcess(int numOfArgs, const char * commandArgs[]);
+Definitions		bool childProcess(int memoryIndex);
+
 Required      : 
 Features Not
 Included
@@ -55,36 +34,40 @@ Known Bugs    :
 /*
 	
 
-	Input	  = {}
-	Output	  = {bool: }
+	Input	  = {int: numOfArgs, const char * *: commandArgs}
+	Output	  = {bool: success}
 */
-bool parentProcess()
+bool parentProcess(int numOfArgs, const char * commandArgs[])
 {
 	bool success = false;
-	
+	char * message = "Parent: requests shared memory";
+	fprintf(stdout, "%s\n", message);
+
+	message	= "Parent: receives shared memory";
+	fprintf(stdout, "%s\n", message);
+
+	message = "Parent: attaches shared memory";
+	fprintf(stdout, "%s\n", message);
+
+	message = "Parent: fills shared memory";
+	fprintf(stdout, "%s\n", message);
+
+	message = "Parent: displays shared memory";
+	fprintf(stdout, "%s\n", message);
+
+	return success;
 }
 
 /*
 	
 
-	Input	  = {}
+	Input	  = {int: memoryIndex}
 	Output	  = {bool: }
 */
 bool childProcess(int memoryIndex)
 {
 	bool success = false;
 
-}
-
-/*
-	
-
-	Input	  = {}
-	Output	  = {bool: }
-*/
-bool runProcesses(int numOfArgs, const char * commandArgs[])
-{
-	bool success = false;
-
+	return success;
 }
 
