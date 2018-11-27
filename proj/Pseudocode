@@ -82,20 +82,20 @@ pseudocode 	  : void printErrorMessage(int mode)
 --------------------------------------------------------------------------------
 pseudocode 	  : bool parentProcess()
 				{
-					1. 
+					1.	
 					
 				}
 
 --------------------------------------------------------------------------------
 pseudocode 	  : bool childProcess(int memoryIndex)
 				{
-					1. 
+					1.	
 
 				}
 
 --------------------------------------------------------------------------------
 pseudocode 	  : bool runProcesses(int numOfArgs, const char * commandArgs[])
 				{
-					1.
+					1.	
 
 				}
