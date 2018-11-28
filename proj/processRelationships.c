@@ -20,8 +20,8 @@ Description   : This source code file is a collection of function definitions
 				that were declared in the processRelationship.h header file.
 
 Function 	  : bool parentProcess(int numOfArgs, const char * commandArgs[]);
-Definitions			- Used to aquire shared memory and attach it to it's 
-					  process address space, populate the memory, and fork child 
+Definitions			- Used to aquire shared memory and attach it to it's process 
+					  address space, populate the memory, and fork child 
 					  processes. After all children have terminated exectution 
 					  the function detaches and removes the shared memory.
 				bool childProcess(int memoryIndex);
@@ -118,6 +118,10 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 
 			message = "Parent: forks child process";
 			fprintf(stdout, "%s\n", message);
+			for(counter = 0; counter < CHILDREN; counter ++)
+			{
+				
+			}
 
 			shmdt(shrdMemPTR);
 

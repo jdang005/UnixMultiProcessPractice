@@ -29,21 +29,21 @@ Output        :
 
 Process       : 
 
-Required      : 
+Required      : None
 Features Not
 Included
 
-Known Bugs    : 
+Known Bugs    : None
 */
 
 #include "processRelationships.h"
 
 
 /*
-	
+	Performs basic function calls.
 
-	Input	  = {}
-	Output	  = {}
+	Input	  = {int argc, const char * argv[]}
+	Output	  = {int EXEC_END}
 */
 int main(int argc, const char * argv[])
 {	
