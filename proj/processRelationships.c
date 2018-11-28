@@ -122,7 +122,7 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 			{
 				
 			}
-
+			
 			shmdt(shrdMemPTR);
 
 			shmctl(shrdMemID, IPC_RMID, NULL);
