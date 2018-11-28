@@ -112,7 +112,7 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 			fprintf(stdout, "%s\n", message);
 			for(counter = 0; counter < CHILDREN; counter ++)
 			{
-				fprintf(stdout, "%d\n", shrdMemPTR[counter]);
+				fprintf(stdout, "%d ", shrdMemPTR[counter]);
 			}
 			fputs("\0", stdout);
 
