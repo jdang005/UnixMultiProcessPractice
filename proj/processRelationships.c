@@ -103,7 +103,7 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 		{
 			message = "Parent: fills shared memory";
 			fprintf(stdout, "%s\n", message);
-			for(counter = 1; counter < CHILDREN; counter ++)
+			for(counter = 1; counter <= CHILDREN; counter ++)
 			{
 				shrdMemPTR[counter - 1] = atoi(commandArgs[counter]); 
 			}
