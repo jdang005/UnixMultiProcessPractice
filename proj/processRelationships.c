@@ -123,9 +123,6 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 
 			shmctl(shrdMemID, IPC_RMID, NULL);
 
-			message = "Hello";
-			fprintf(stdout, "%s\n", message);
-
 			success = true;
 		}	
 	}

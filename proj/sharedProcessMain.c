@@ -61,6 +61,11 @@ int main(int argc, const char * argv[])
 		{
 			return EXEC_END - 1;
 		}
+		else
+		{
+			message = "Hello";
+			fprintf(stdout, "%s\n", message);
+		}
 	}
 	else
 	{
