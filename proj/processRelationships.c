@@ -66,7 +66,7 @@ Known Bugs    :
 */
 bool parentProcess(int numOfArgs, const char * commandArgs[])
 {
-	const int CHILDREN = numOfArgs;
+	const int CHILDREN = numOfArgs - 1;
 	const key_t SHRDKEY = ftok(".", 'a');
 	bool success = false;
 	char * message = NULL;
@@ -103,9 +103,9 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 		{
 			message = "Parent: fills shared memory";
 			fprintf(stdout, "%s\n", message);
-			for(counter = 0; counter < CHILDREN; counter ++)
+			for(counter = 1; counter < CHILDREN; counter ++)
 			{
-				shrdMemPTR[counter] = atoi(commandArgs[counter]); 
+				shrdMemPTR[counter - 1] = atoi(commandArgs[counter]); 
 			}
 
 			message = "Parent: displays shared memory";
