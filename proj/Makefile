@@ -26,13 +26,14 @@
 #                	  make file.
 
 #Output        : "SharedProcess" 
-#					- an executable file.
+#					- An executable file.
 
 #Process       : The make file uses gcc to compile the c files 
 #				 sharedProcessMain.c and processRelationships.c, then links the 
 #				 object file with the header files processRelationships.h, 
 #				 stdio.h, stdlib.h, unistd.h, stdbool.h, limits.h, string.h, and 
-#				 sys/types.h creating the executable file SharedProcess.
+#				 sys/types.h, sys/ipc.h, sys/shm.h creating the executable file 
+#				 SharedProcess.
 
 #Required      : None
 #Features Not

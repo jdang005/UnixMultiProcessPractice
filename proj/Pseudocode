@@ -73,7 +73,9 @@ pseudocode 	  : int copyChars(char dest[MAX_STR_BUFF + 1], const char * src,
 pseudocode 	  : void printErrorMessage(int mode)
 				{
 					1.  if mode is 0
-							message is "Invalid command input"
+							message is "Invalid command input!"
+    					else if 1
+    						message is "Shared memory error!"
     					else
         					message is "Unknown reason for error!"
 

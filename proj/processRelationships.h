@@ -45,6 +45,10 @@ Constants     : NUM_INIT
 
 Function	  : bool parentProcess(int, const char * *);
 Prototypes		bool childProcess(int);
+				bool validateCommandInput(int, char * *);
+				bool validateCharToInt(char *, int, int);
+				int copyChars(char [MAX_STR_BUFF + 1], const char *, char);
+				void printErrorMessage(int);
 
 Required      : None
 Features Not
@@ -72,5 +76,9 @@ Known Bugs    : None
 
 bool parentProcess(int, const char * *);
 bool childProcess(int);
+bool validateCommandInput(int, const char * *);
+bool validateCharToInt(char *, int, int);
+int copyChars(char [MAX_STR_BUFF + 1], const char *, char);
+void printErrorMessage(int);
 
 #endif /* processRelationships_h */
