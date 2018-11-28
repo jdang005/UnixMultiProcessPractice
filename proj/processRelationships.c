@@ -69,12 +69,13 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 	const int CHILDREN = numOfArgs;
 	const key_t SHRDKEY = ftok(".", 'a');
 	bool success = false;
+	char * message = NULL;
 	int counter = NUM_INIT;
 	int shrdMemID = NUM_INIT;
 	int * shrdMemPTR = NULL;  
 	pid_t childIDs[CHILDREN];
-
-	char * message = "Parent: requests shared memory";
+	
+	message = "Parent: requests shared memory";
 	fprintf(stdout, "%s\n", message);
 	
 	shrdMemID = shmget(SHRDKEY, (CHILDREN * sizeof(int)), 
@@ -102,9 +103,18 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 		{
 			message = "Parent: fills shared memory";
 			fprintf(stdout, "%s\n", message);
+			for(counter = 0; counter < CHILDREN; counter ++)
+			{
+				shrdMemPTR[counter] = atoi(commandArgs[counter]); 
+			}
 
 			message = "Parent: displays shared memory";
 			fprintf(stdout, "%s\n", message);
+			for(counter = 0; counter < CHILDREN; counter ++)
+			{
+				fprintf(stdout, "%d ", shrdMemPTR[counter]);
+			}
+			fputs("\0", stdout);
 
 			message = "Parent: forks child process";
 			fprintf(stdout, "%s\n", message);
