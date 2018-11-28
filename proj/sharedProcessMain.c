@@ -52,11 +52,11 @@ int main(int argc, const char * argv[])
 	message = "Parent: validate command line";
 	fprintf(stdout, "%s\n", message);
 
-	const bool VALID = validateCommandInput(numOfArgs, commandArgs);
+	const bool VALID = validateCommandInput(argc, argv);
 	bool sharedProcess = false;
 	if(VALID == true)
 	{	
-		sharedProcess = parentProcess(arc, argv);
+		sharedProcess = parentProcess(argc, argv);
 		if(sharedProcess == false)
 		{
 			return EXEC_END - 1;
