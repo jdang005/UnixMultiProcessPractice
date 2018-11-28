@@ -114,7 +114,7 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 			{
 				fprintf(stdout, "%d ", shrdMemPTR[counter]);
 			}
-			fputs("\0", stdout);
+			fputs("\n", stdout);
 
 			message = "Parent: forks child process";
 			fprintf(stdout, "%s\n", message);
