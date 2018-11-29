@@ -172,7 +172,7 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 					fflush(stdout);
 				}
 
-				fprintf(stdout, "\nParent: detaches shared memory\n");
+				fprintf(stdout, "\n\nParent: detaches shared memory\n");
 				shmdt(shrdMemPTR);
 
 				fprintf(stdout, "\nParent: removes shared memory \n");
@@ -205,25 +205,25 @@ void childProcess(int memoryIndex, int * shrdMemPTR)
 	pid_t PROCESSID = getpid();
 	/* Child Process */ 
 
-	fprintf(stdout, "\nChild ID: %d displays shared memory %d\n", 
+	fprintf(stdout, "\n\tChild ID: %d displays shared memory %d\n", 
 		PROCESSID, shrdMemPTR[memoryIndex]);
 	fflush(stdout);
 
-	fprintf(stdout, "\nChild ID: %d displays private unique ID %d\n", 
+	fprintf(stdout, "\n\tChild ID: %d displays private unique ID %d\n", 
 		PROCESSID, memoryIndex);
 	fflush(stdout);
 	
-	fprintf(stdout, "\nChild ID: %d updates shared memory\n", 
+	fprintf(stdout, "\n\tChild ID: %d updates shared memory\n", 
 		PROCESSID);
 	fflush(stdout);
 
 	shrdMemPTR[memoryIndex] *= memoryIndex;
 
-	fprintf(stdout, "\nChild ID: %d displays shared memory %d\n", 
+	fprintf(stdout, "\n\tChild ID: %d displays shared memory %d\n", 
 		PROCESSID, shrdMemPTR[memoryIndex]);
 	fflush(stdout);
 
-	fprintf(stdout, "\nChild ID: %d exits with code %d\n", exitCode);
+	fprintf(stdout, "\n\tChild ID: %d exits with code %d\n", exitCode);
 	fflush(stdout);
 
 	exit(exitCode);
