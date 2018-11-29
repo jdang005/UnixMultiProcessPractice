@@ -34,6 +34,11 @@ Libraries     : stdio.h
 					- Used to define string functions
 				sys/types.h 
 					- Used to define c types based on the current system
+				sys/ipc.h
+					- Used to allow for communication between multiple 
+					  processes.
+				sys/shm.h
+					- Used for shared memory access.
 
 Constants     : NUM_INIT	
 					- Regular numerical type initialization value is zero. (0)
@@ -44,7 +49,7 @@ Constants     : NUM_INIT
 					  standard size of the unix console. (80)
 
 Function	  : bool parentProcess(int, const char * *);
-Prototypes		bool childProcess(int);
+Prototypes		void childProcess(int, int *);
 				bool validateCommandInput(int, char * *);
 				bool validateCharToInt(char *, int, int);
 				int copyChars(char [MAX_STR_BUFF + 1], const char *, char);
@@ -75,7 +80,7 @@ Known Bugs    : None
 #define MAX_STR_BUFF 80
 
 bool parentProcess(int, const char * *);
-bool childProcess(int);
+void childProcess(int, int *);
 bool validateCommandInput(int, const char * *);
 bool validateCharToInt(char *, int, int);
 int copyChars(char [MAX_STR_BUFF + 1], const char *, char);
