@@ -130,7 +130,7 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 				{
 					message = "Child Process: ";
 					write(STDOUT_FILENO, message, strLen(message));
-					message = counter + '0';
+					message = (char)counter + '0';
 					write(STDOUT_FILENO, message, strLen(message));
 					message = "\n";
 					write(STDOUT_FILENO, message, strLen(message));
