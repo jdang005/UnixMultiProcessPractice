@@ -67,7 +67,7 @@ Known Bugs    :
 bool parentProcess(int numOfArgs, const char * commandArgs[])
 {
 	const int CHILDREN = numOfArgs - 1;
-	const pid_t ParentID = getpid();
+	const pid_t PARENTID = getpid();
 	const key_t SHRDKEY = ftok(".", 'a');
 	bool success = false;
 	char * message = NULL;
@@ -122,7 +122,7 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 			fprintf(stdout, "%s\n", message);
 			for(counter = 0; counter < CHILDREN; counter ++)
 			{
-				if(getpid() = ParentID)
+				if(getpid() == PARENTID)
 				{
 					childIDs[counter] = fork();
 				}
