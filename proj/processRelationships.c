@@ -67,12 +67,14 @@ Known Bugs    :
 bool parentProcess(int numOfArgs, const char * commandArgs[])
 {
 	const int CHILDREN = numOfArgs - 1;
+	const pid_t ParentID = getpid();
 	const key_t SHRDKEY = ftok(".", 'a');
 	bool success = false;
 	char * message = NULL;
 	int counter = NUM_INIT;
 	int shrdMemID = NUM_INIT;
 	int * shrdMemPTR = NULL;  
+	pid_t childID = NUM_INIT;
 	pid_t childIDs[CHILDREN];
 	
 	message = "Parent: requests shared memory";
@@ -120,7 +122,19 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 			fprintf(stdout, "%s\n", message);
 			for(counter = 0; counter < CHILDREN; counter ++)
 			{
-				
+				if(getpid() = ParentID)
+				{
+					childIDs[counter] = fork();
+				}
+				else
+				{
+					message = "Child Process: ";
+					write(STDOUT_FILENO, message, strLen(message));
+					message = atoi(counter);
+					write(STDOUT_FILENO, message, strLen(message));
+					message = "\n";
+					write(STDOUT_FILENO, message, strLen(message));
+				}
 			}
 			
 			shmdt(shrdMemPTR);
