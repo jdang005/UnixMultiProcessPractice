@@ -121,28 +121,27 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 			message = "Parent: forks child process";
 			fprintf(stdout, "%s\n", message);
 
-			
+			for(counter = 0; counter < 1, counter ++)
+			{
 				if(getpid() == PARENTID)
 				{
-					childIDs[counter] = fork();
-					if(childIDs[counter] < 0)
+					childID = fork();
+					if(childID < 0)
 					{
 						printErrorMessage(NUM_INIT + 2);
-					}
-					else if(childIDs[counter] == 0)
-					{
-						message = "Child Process: ";
-						write(STDOUT_FILENO, message, strlen(message));
-						sprintf(message, "%d", counter);
-						write(STDOUT_FILENO, message, strlen(message));
-						message = "\n";
-						write(STDOUT_FILENO, message, strlen(message));
+						exit(NUM_INIT + 1);
 					}
 					else
 					{
-
+						childIDs[counter] = childID;
 					}
+					
 				}
+				else
+				{
+					childProcess(counter);
+				}
+			}
 			/*
 			for(counter = 0; counter < CHILDREN; counter ++)
 			{
@@ -171,6 +170,14 @@ bool childProcess(int memoryIndex)
 {
 	bool success = false;
 
+	/* Child Process */ 
+	message = "Child Process: ";
+	write(STDOUT_FILENO, message, strlen(message));
+	sprintf(message, "%d", memoryIndex);
+	write(STDOUT_FILENO, message, strlen(message));
+	message = "\n";
+	write(STDOUT_FILENO, message, strlen(message));
+					
 	return success;
 }
 
