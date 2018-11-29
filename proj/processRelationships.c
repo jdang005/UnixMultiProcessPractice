@@ -169,7 +169,7 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 bool childProcess(int memoryIndex)
 {
 	bool success = false;
-
+	char * message = NULL;
 	/* Child Process */ 
 	message = "Child Process: ";
 	write(STDOUT_FILENO, message, strlen(message));
