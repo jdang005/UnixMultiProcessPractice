@@ -120,11 +120,14 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 
 			message = "Parent: forks child process";
 			fprintf(stdout, "%s\n", message);
-			for(counter = 0; counter < CHILDREN; counter ++)
-			{
+
 				if(getpid() == PARENTID)
 				{
 					childIDs[counter] = fork();
+					if(childIDs[counter] < 0)
+					{
+						printErrorMessage();
+					}
 				}
 				else
 				{
@@ -135,7 +138,13 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 					message = "\n";
 					write(STDOUT_FILENO, message, strlen(message));
 				}
+			
+			/*
+			for(counter = 0; counter < CHILDREN; counter ++)
+			{
+				
 			}
+			*/
 			
 			shmdt(shrdMemPTR);
 
@@ -330,6 +339,7 @@ int copyChars(char dest[MAX_STR_BUFF + 1], const char * SRC, char delim)
 
   	mode = 0      : Represents invalid command line arguments.
   	mode = 1	  : Represents shared memory error.
+  	mode = 2	  : Represents a process creation error.
   	any other mode: Represents and undefined reason for termination.
 
   	Input   = {int}
@@ -354,6 +364,12 @@ void printErrorMessage(int mode)
   	else if(mode == NUM_INIT + 1)
   	{
   		message1 = "\nShared memory error\n";
+  		fprintf(stderr, "%s", message1);
+  		fputs("\0", stderr);
+  	}
+  	else if(mode == NUM_INIT + 2)
+  	{
+  		message1 = "\nError creating child process\n";
   		fprintf(stderr, "%s", message1);
   		fputs("\0", stderr);
   	}
