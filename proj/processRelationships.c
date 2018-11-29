@@ -129,11 +129,11 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 				else
 				{
 					message = "Child Process: ";
-					write(STDOUT_FILENO, message, strLen(message));
+					write(STDOUT_FILENO, message, strlen(message));
 					sprintf(message, "%d", counter);
-					write(STDOUT_FILENO, message, strLen(message));
+					write(STDOUT_FILENO, message, strlen(message));
 					message = "\n";
-					write(STDOUT_FILENO, message, strLen(message));
+					write(STDOUT_FILENO, message, strlen(message));
 				}
 			}
 			
