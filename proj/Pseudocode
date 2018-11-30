@@ -76,21 +76,46 @@ pseudocode 	  : void printErrorMessage(int mode)
 							message is "Invalid command input!"
     					else if 1
     						message is "Shared memory error!"
-    					else
+    					else if 2
+    						message is "Error creating child process!"
+    					else 
         					message is "Unknown reason for error!"
 
   					2. printError(message)
 				}
 --------------------------------------------------------------------------------
-pseudocode 	  : bool parentProcess()
+pseudocode 	  : bool parentProcess(int numOfArgs, const char * commandArgs[])
 				{
-					1.	
-					
+					1.	Aquire shared memory based on numOfArgs and attach it to
+						parentProcess' address space.
+
+					2. 	Populate shared memory based with commandArgs
+
+					3.	Fork child processes and wait for all child processes to
+						terminate.
+
+					4. 	Detach and remove shared memory
+
+					5. 	Return true if completed successfully, false if any 
+						child process could not be forked or did not terminate 
+						correctly.
 				}
 
 --------------------------------------------------------------------------------
-pseudocode 	  : bool childProcess(int memoryIndex)
+pseudocode 	  : bool childProcess(int memoryIndex, int * shrdMemPTR)
 				{
-					1.	
+					1. 	Display shared memory at location provided by 
+						memoryIndex
 
+					2.	Display memoryIndex
+
+					3. 	Multiply memoryIndex by the value stored shared memory 
+						at location provided by memoryIndex.
+
+					4.	Display shared memory at location provided by 
+						memoryIndex
+
+					5.	Display exit code
+
+					6. 	Terminate.
 				}

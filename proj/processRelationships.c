@@ -49,11 +49,11 @@ Definitions			- Used to aquire shared memory and attach it to it's process
 					  stream. The mode variable determines which set of messages 
 					  is sent to the st1andard error stream.
 
-Required      : 
+Required      : None
 Features Not
 Included
 
-Known Bugs    : 
+Known Bugs    : None
 */
 
 #include "processRelationships.h"
@@ -75,22 +75,35 @@ Known Bugs    :
 bool parentProcess(int numOfArgs, const char * commandArgs[])
 {
 	const int CHILDREN = numOfArgs - 1;
+	const int NUMOFMESSAGES = 11;
 	const pid_t PARENTID = getpid();
 	const key_t SHRDKEY = ftok(".", 'a');
+	char * message = NULL;
 	pid_t forkID = getpid();
 	pid_t childIDs[CHILDREN];
 	bool success = false;
-	char * message = NULL;
 	int status = NUM_INIT;
 	int counter = NUM_INIT;
 	int deadChildren = NUM_INIT;
 	int shrdMemID = NUM_INIT;
 	int * shrdMemPTR = NULL;  
+	char * STANDARDMESSAGES[NUMOFMESSAGES];
+	STANDARDMESSAGES[0] = "\nParent: requests shared memory\n";
+	STANDARDMESSAGES[1] = "\nParent: receives shared memory\n";
+	STANDARDMESSAGES[2] = "\nParent: attaches shared memory\n";
+	STANDARDMESSAGES[3] = "\nParent: fills shared memory\n";
+	STANDARDMESSAGES[4] = "\nParent: displays shared memory\n";
+	STANDARDMESSAGES[5] = "\nParent: forks child process: ";
+	STANDARDMESSAGES[6] = "\nDead Child Processes: ";
+	STANDARDMESSAGES[7] = "\nParent: displays shared memory \n";
+	STANDARDMESSAGES[8] = "\n\nParent: detaches shared memory\n";
+	STANDARDMESSAGES[9] = "\nParent: removes shared memory \n";
+	STANDARDMESSAGES[10] = "\nParent: finished\n";
 	
-	
-	fprintf(stdout, "\nParent: requests shared memory\n");
+	fprintf(stdout, "%s", STANDARDMESSAGES[0]);
 	fflush(stdout);	
-	
+
+	/* Allocate shared memory and validate*/
 	shrdMemID = shmget(SHRDKEY, (CHILDREN * sizeof(int)), 
 		IPC_CREAT | 0666);
 	if (shrdMemID < 0)
@@ -100,12 +113,13 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 	}
 	else
 	{
-		fprintf(stdout, "\nParent: receives shared memory\n");
+		fprintf(stdout, "%s", STANDARDMESSAGES[1]);
 		fflush(stdout);
 
-		fprintf(stdout, "\nParent: attaches shared memory\n");
+		fprintf(stdout, "%s", STANDARDMESSAGES[2]);
 		fflush(stdout);
 		
+		/* Attach shared memory to parent process address space */
 		shrdMemPTR = (int *) shmat(shrdMemID, NULL, 0);
 		if ((int)shrdMemPTR == NUM_INIT - 1) 
 		{
@@ -114,16 +128,18 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 		}
 		else
 		{
-			fprintf(stdout, "\nParent: fills shared memory\n");
+			fprintf(stdout, "%s", STANDARDMESSAGES[3]);
 			fflush(stdout);
+			/* Populate shared memory with command-line arguments */
 			for(counter = 1; counter <= CHILDREN; counter ++)
 			{
 				shrdMemPTR[counter - 1] = atoi(commandArgs[counter]); 
 			}
 
-			fprintf(stdout, "\nParent: displays shared memory\n");
+			fprintf(stdout, "%s", STANDARDMESSAGES[4]);
 			fflush(stdout);
 
+			/* Print initial state of shared memory */
 			for(counter = 0; counter < CHILDREN; counter ++)
 			{
 				fprintf(stdout, "%d ", shrdMemPTR[counter]);
@@ -133,12 +149,12 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 			fprintf(stdout, "\n");
 			fflush(stdout);
 
+			/* Fork child processes */
 			for(counter = 1; counter <= CHILDREN; counter ++)
 			{
 				if((forkID = fork()) > 0)
 				{
-					fprintf(stdout, "\nParent: forks child process: %d\n", 
-						forkID);
+					fprintf(stdout, "%s%d\n", STANDARDMESSAGES[5], forkID);
 					fflush(stdout);
 				}
 				else if(forkID < 0)
@@ -152,19 +168,20 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 				}
 			}
 
+			/* Wait for all child processes to terminate */
 			while(deadChildren < CHILDREN)
 			{
 				forkID = wait(&status);
 				deadChildren ++;
 			}
 			
+			/* Parent process detaches and removes shared memory */
 			if(getpid() == PARENTID)
 			{
-				fprintf(stdout, "\nDead Child Processes: %d", 
-					deadChildren);
+				fprintf(stdout, "%s%d\n", STANDARDMESSAGES[6], deadChildren);
 				fflush(stdout);
 
-				fprintf(stdout, "\nParent: displays shared memory \n");
+				fprintf(stdout, "%s", STANDARDMESSAGES[7]);
 				fflush(stdout);
 				for(counter = 0; counter < CHILDREN; counter ++)
 				{
@@ -172,15 +189,15 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 					fflush(stdout);
 				}
 
-				fprintf(stdout, "\n\nParent: detaches shared memory\n");
+				fprintf(stdout, "%s", STANDARDMESSAGES[8]);
 				shmdt(shrdMemPTR);
 
-				fprintf(stdout, "\nParent: removes shared memory \n");
+				fprintf(stdout, "%s", STANDARDMESSAGES[8]);
 				shmctl(shrdMemID, IPC_RMID, NULL);
 
 				success = true;
 
-				fprintf(stdout, "\nParent: finished\n");
+				fprintf(stdout, "%s", STANDARDMESSAGES[9]);
 				fflush(stdout);
 			}
 		}	
@@ -201,32 +218,46 @@ bool parentProcess(int numOfArgs, const char * commandArgs[])
 void childProcess(int memoryIndex, int * shrdMemPTR)
 {
 	char * message = NULL;
-	int exitCode = EXEC_END;
+	const int EXITCODE = EXEC_END;
 	pid_t PROCESSID = getpid();
+	const int NUMOFMESSAGES = 5;
+	char * STANDARDMESSAGES[NUMOFMESSAGES];
+	STANDARDMESSAGES[0] = "\n\tChild ID: ";
+	STANDARDMESSAGES[1] = " displays shared memory ";
+	STANDARDMESSAGES[2] = " displays private unique ID ";
+	STANDARDMESSAGES[3] = " updates shared memory\n";
+	STANDARDMESSAGES[4] = " exits with code ";
 	/* Child Process */ 
 
-	fprintf(stdout, "\n\tChild ID: %d displays shared memory %d\n", 
-		PROCESSID, shrdMemPTR[memoryIndex]);
+	/* Displays shared memory at unique location provided to child process */
+	fprintf(stdout, "%s%d%s%d\n", STANDARDMESSAGES[0], PROCESSID, 
+		STANDARDMESSAGES[1], shrdMemPTR[memoryIndex]);
 	fflush(stdout);
 
-	fprintf(stdout, "\n\tChild ID: %d displays private unique ID %d\n", 
-		PROCESSID, memoryIndex);
+	/* Displays unique location */
+	fprintf(stdout, "%s%d%s%d\n", STANDARDMESSAGES[0], 
+		PROCESSID, STANDARDMESSAGES[2], memoryIndex);
 	fflush(stdout);
 	
-	fprintf(stdout, "\n\tChild ID: %d updates shared memory\n", 
-		PROCESSID);
+	/* Updates shared memory */
+	fprintf(stdout, "%s%d%s", STANDARDMESSAGES[0], PROCESSID, 
+		STANDARDMESSAGES[3]);
 	fflush(stdout);
 
 	shrdMemPTR[memoryIndex] *= memoryIndex;
 
-	fprintf(stdout, "\n\tChild ID: %d displays shared memory %d\n", 
-		PROCESSID, shrdMemPTR[memoryIndex]);
+	/* Displays shared memory at unique location provided to child process */
+	fprintf(stdout, "%s%d%s%d\n", STANDARDMESSAGES[0], PROCESSID, 
+		STANDARDMESSAGES[1], shrdMemPTR[memoryIndex]);
 	fflush(stdout);
 
-	fprintf(stdout, "\n\tChild ID: %d exits with code %d\n", exitCode);
+	/* Displays exit code */
+	fprintf(stdout, "%s%d%s%d\n", STANDARDMESSAGES[0], PROCESSID, 
+		STANDARDMESSAGES[4], EXITCODE);
 	fflush(stdout);
 
-	exit(exitCode);
+	/* Terminate child process */
+	exit(EXITCODE);
 }
 
 /*
@@ -329,6 +360,7 @@ bool validateCharToInt(char * input, int min, int max)
       		}
     	}
   	}
+
   	/*
     	If the number of digits in the string is beyond the maximum buffer size 
     	for a string, the string is not an int.
@@ -337,6 +369,7 @@ bool validateCharToInt(char * input, int min, int max)
   	{
   	  return false;
   	}
+  	
   	/* Exclude values outside the range of min...max */
   	longStorage = atol(input);
   	if(longStorage < min || longStorage > max)
@@ -408,38 +441,39 @@ int copyChars(char dest[MAX_STR_BUFF + 1], const char * SRC, char delim)
 */
 void printErrorMessage(int mode)
 {
-  	char * message1 = '\0';
-  	/* Assign message to print */
+	const int NUMBEROFERRORMESSAGE = 6;
+	char * ERRORMESSAGES[NUMBEROFERRORMESSAGE];
+	ERRORMESSAGES[0] = "\nInvalid command input!";
+	ERRORMESSAGES[1] = 
+		"\nThere must be between one and seven command arguments";
+	ERRORMESSAGES[2] = 
+		"\nEach argument must be an integer between zero and nine\n";
+	ERRORMESSAGES[3] = "\nShared memory error!\n";
+	ERRORMESSAGES[4] = "\nError creating child process!\n";
+	ERRORMESSAGES[5] = "\nUndefined reason for termination!\n";
+  	char * message = NULL;
+  	
+  	/* Print error messages based on mode */
   	if(mode == NUM_INIT)
   	{
-    	/* Additional details are printed */
-    	char * message2 = '\0';
-    	char * message3 = '\0';
-
-    	message1 = "\nInvalid command input";
-    	write(STDERR_FILENO, message1, strlen(message1));
-    	message2 = "\nThere must be between one and seven command arguments";
-    	write(STDERR_FILENO, message2, strlen(message2));
-    	message3 = "\nEach argument must be an integer between zero and nine\n";
-    	write(STDERR_FILENO, message3, strlen(message3));
-    	message1 = "\n";
-    	write(STDERR_FILENO, message1, strlen(message1));
-
+    	fprintf(stdout, "%s%s%s", &ERRORMESSAGES[0], &ERRORMESSAGES[1], 
+    		&ERRORMESSAGES[2]);
+		fflush(stdout);	
   	}
   	else if(mode == NUM_INIT + 1)
   	{
-  		message1 = "\nShared memory error\n\0";
-  		write(STDERR_FILENO, message1, strlen(message1));
+  		fprintf(stdout, "%s", &ERRORMESSAGES[3]);
+  		fflush(stdout);
   	}
   	else if(mode == NUM_INIT + 2)
   	{
-  		message1 = "\nError creating child process\n\0";
-  		write(STDERR_FILENO, message1, strlen(message1));
+  		fprintf(stdout, "%s", &ERRORMESSAGES[4]);
+  		fflush(stdout);
   	}
   	else
   	{
     	/* Undefined reason for termination */
-    	message1 = "\nUndefined reason for termination!\n\0";
-    	write(STDERR_FILENO, message1, strlen(message1));
+  		fprintf(stdout, "%s", &ERRORMESSAGES[5]);
+  		fflush(stdout);
   	}
 }

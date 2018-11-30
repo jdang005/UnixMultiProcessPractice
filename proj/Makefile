@@ -22,11 +22,11 @@
 
 #Input         : "sharedProcessMain.c", "processRelationships.c", and 
 #				 "processRelationships.h"
-#                	- These must be located within the same directory as this 					
-#                	  make file.
+#                - These must be located within the same directory as this 					
+#                  make file.
 
 #Output        : "SharedProcess" 
-#					- An executable file.
+#				 - An executable file.
 
 #Process       : The make file uses gcc to compile the c files 
 #				 sharedProcessMain.c and processRelationships.c, then links the 
